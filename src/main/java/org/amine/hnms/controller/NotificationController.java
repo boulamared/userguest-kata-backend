@@ -8,16 +8,20 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.amine.hnms.DTO.NotificationPerformance;
 import org.amine.hnms.domain.*;
 import org.amine.hnms.service.INotificationService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 @RestController
 @RequestMapping("/notifications")
 @Tag(name = "Notification Management", description = "Endpoints for managing notifications/Performance")
+@CrossOrigin(origins = "http://localhost:4200")
 public class NotificationController {
 
     private final INotificationService notificationService;
@@ -69,7 +73,7 @@ public class NotificationController {
             @ApiResponse(responseCode = "200", description = "Performance metrics retrieved successfully"),
             @ApiResponse(responseCode = "404", description = "Notification not found")
     })
-    public ResponseEntity<NotificationPerformance> getNotificationPerformanceById(@PathVariable("notificationId") Integer notificationId, @RequestParam(value = "startDate", required = true) LocalDateTime startDateTime, @RequestParam(value = "endDate",required = true) LocalDateTime endDateTime) throws Exception {
+    public ResponseEntity<NotificationPerformance> getNotificationPerformanceById(@PathVariable("notificationId") Integer notificationId, @RequestParam(value = "startDate", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDateTime, @RequestParam(value = "endDate",required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime endDateTime) throws Exception {
         return new ResponseEntity<>(this.notificationService.getNotificationPerformance(notificationId, startDateTime,endDateTime),HttpStatus.OK);
     }
 

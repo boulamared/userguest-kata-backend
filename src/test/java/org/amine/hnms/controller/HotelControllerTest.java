@@ -63,7 +63,7 @@ public class HotelControllerTest {
         Notification notification = new Notification();
         when(notificationService.create(hotelId, notification)).thenReturn(notification);
 
-        ResponseEntity<Notification> response = hotelController.create(hotelId, notification);
+        ResponseEntity<Notification> response = hotelController.createNotification(hotelId, notification);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(notification, response.getBody());

@@ -3,16 +3,20 @@ package org.amine.hnms.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
-@Table
+@Table(indexes = {
+        @Index(name = "index_hotel_key", columnList = "\"key\""),
+        @Index(name = "index_hotel_name", columnList = "name")})
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class Hotel {
 
     @Id

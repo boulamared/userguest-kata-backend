@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(indexes = {
+        @Index(name = "index_impression_notification", columnList = "notification_id")})
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

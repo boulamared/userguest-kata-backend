@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table
+@Table(indexes = {
+        @Index(name = "index_notification_hotel", columnList = "hotel_id")})
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

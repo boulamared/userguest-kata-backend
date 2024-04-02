@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/hotels")
 @Tag(name = "Hotels Management", description = "Endpoints for managing Hotels")
+@CrossOrigin(origins = "http://localhost:4200")
 public class HotelController {
 
     private final IHotelService hotelService;
@@ -48,6 +49,15 @@ public class HotelController {
         return new ResponseEntity<>(this.hotelService.getAll(),HttpStatus.OK);
     }
 
+    @GetMapping("/{hotelId}")
+    @Operation(summary = "Get Hotel", description = "This endpoint allows to get One hotel by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get details of the hotel by ID"),
+    })
+    public ResponseEntity<Hotel> getOneById(@PathVariable("hotelId") Integer hotelId) throws Exception {
+        return new ResponseEntity<>(this.hotelService.getOneById(hotelId),HttpStatus.OK);
+    }
+
     @PostMapping("/{hotelId}/notifications")
     @Operation(summary = "Create a new notification for a hotel",
             description = "This endpoint allows you to create a new notification for a specific hotel.")
@@ -56,7 +66,7 @@ public class HotelController {
             @ApiResponse(responseCode = "400", description = "Invalid request body"),
             @ApiResponse(responseCode = "404", description = "Hotel with the ID not found")
     })
-    public ResponseEntity<Notification> create(@PathVariable Integer hotelId, @RequestBody Notification notification) throws Exception {
+    public ResponseEntity<Notification> createNotification(@PathVariable Integer hotelId, @RequestBody Notification notification) throws Exception {
         return new ResponseEntity<>(this.notificationService.create(hotelId,notification), HttpStatus.CREATED);
     }
 
